@@ -85,10 +85,6 @@ func resourceSendgridAPIKeyCreate(ctx context.Context, d *schema.ResourceData, m
 		scopes = append(scopes, scope.(string))
 	}
 
-	if ok := scopeInScopes(scopes, "sender_verification_eligible"); !ok {
-		scopes = append(scopes, "sender_verification_eligible")
-	}
-
 	apiKeyStruct, err := sendgrid.RetryOnRateLimit(ctx, d, func() (interface{}, sendgrid.RequestError) {
 		return c.CreateAPIKey(name, scopes)
 	})
@@ -143,8 +139,6 @@ func resourceSendgridAPIKeyUpdate(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	o, n := d.GetChange("scopes")
-	n.(*schema.Set).Add("sender_verification_eligible")
-	n.(*schema.Set).Add("2fa_required")
 
 	if ok := hasDiff(o, n); ok {
 		var scopes []string
