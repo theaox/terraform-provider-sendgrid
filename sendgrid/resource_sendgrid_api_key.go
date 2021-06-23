@@ -129,12 +129,12 @@ func hasDiff(o, n interface{}) bool {
 }
 
 func remove(s []string, r string) []string {
-    for i, v := range s {
-        if v == r {
-            return append(s[:i], s[i+1:]...)
-        }
-    }
-    return s
+	for i, v := range s {
+		if v == r {
+			return append(s[:i], s[i+1:]...)
+		}
+	}
+	return s
 }
 
 func resourceSendgridAPIKeyUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
