@@ -115,7 +115,7 @@ func resourceSendgridAPIKeyRead(_ context.Context, d *schema.ResourceData, m int
 	//nolint:errcheck
 	d.Set("name", apiKey.Name)
 	//nolint:errcheck
-	d.Set("scopes", apiKey.Scopes)
+	d.Set("scopes", remove(apiKey.Scopes, "2fa_required"))
 
 	return nil
 }
@@ -126,6 +126,15 @@ func hasDiff(o, n interface{}) bool {
 	}
 
 	return !reflect.DeepEqual(o, n)
+}
+
+func remove(s []string, r string) []string {
+    for i, v := range s {
+        if v == r {
+            return append(s[:i], s[i+1:]...)
+        }
+    }
+    return s
 }
 
 func resourceSendgridAPIKeyUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
