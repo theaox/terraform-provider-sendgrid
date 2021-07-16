@@ -64,16 +64,6 @@ func resourceSendgridAPIKey() *schema.Resource {
 	}
 }
 
-func scopeInScopes(scopes []string, scope string) bool {
-	for _, v := range scopes {
-		if v == scope {
-			return true
-		}
-	}
-
-	return false
-}
-
 func resourceSendgridAPIKeyCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	var scopes []string
 
