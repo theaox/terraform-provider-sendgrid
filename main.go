@@ -10,5 +10,3 @@ func main() {
 		ProviderFunc: sendgrid.Provider,
 	})
 }
-
-
