@@ -124,6 +124,7 @@ func remove(s []string, r string) []string {
 			return append(s[:i], s[i+1:]...)
 		}
 	}
+
 	return s
 }
 
